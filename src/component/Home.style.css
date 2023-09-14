@@ -1,0 +1,17 @@
+.article-header {
+    background-color: orangered;
+    color: white;
+    border: 1px solid transparent;
+    text-align: center;
+  }
+  
+  .section-content {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 15px;
+  }
+  
+  .add-book-btn {
+    float: right;
+    margin-bottom: 5px;
+  }
