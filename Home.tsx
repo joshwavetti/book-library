@@ -1,15 +1,22 @@
 import "./Home.style.css";
-import { useState } from "react";
-import { IBook, PageEnum, dummyBookList } from "./Book.type";
+import { useEffect, useState } from "react";
+import { IBook, PageEnum } from "./Book.type";
 import BookList from "./BookList";
 import AddBook from "./AddBook";
 import EditBook from "./EditBook";
 
 const Home = () => {
-  const [bookList, setBookList] = useState(dummyBookList as IBook[]);
-
+  const [bookList, setBookList] = useState([] as IBook[]);
   const [shownPage, setShownPage] = useState(PageEnum.list);
   const [dataToEdit, setDataToEdit] = useState({} as IBook);
+
+  useEffect(() => {
+    const listInString = window.localStorage.getItem("BookList");
+    if (listInString) {
+      _setBookList(JSON.parse(listInString));
+    }
+  }, []);
+
   const onAddBookClickHnd = () => {
     setShownPage(PageEnum.add);
   };
@@ -18,34 +25,35 @@ const Home = () => {
     setShownPage(PageEnum.list);
   };
 
+  const _setBookList = (list: IBook[]) => {
+    setBookList(list);
+    window.localStorage.setItem("BookList", JSON.stringify(list));
+  };
   const addBook = (data: IBook) => {
-    setBookList([...bookList, data]);
+    _setBookList([...bookList, data]);
   };
   const deleteBook = (data: IBook) => {
-
     const indexToDelete = bookList.indexOf(data);
-    const tempList = [...bookList]
+    const tempList = [...bookList];
 
     tempList.splice(indexToDelete, 1);
-    setBookList(tempList);
-
+    _setBookList(tempList);
   };
 
   const editBookData = (data: IBook) => {
     setShownPage(PageEnum.edit);
     setDataToEdit(data);
-
   };
 
-const updateData = (data: IBook) => {
-const filteredData = bookList.filter(x => x.id === data.id)[0];
-const indexOfRecord = bookList.indexOf(filteredData);
-const tempData = [...bookList];
-tempData[indexOfRecord] = data;
-setBookList(tempData)
-}
+  const updateData = (data: IBook) => {
+    const filteredData = bookList.filter((x) => x.id === data.id)[0];
+    const indexOfRecord = bookList.indexOf(filteredData);
+    const tempData = [...bookList];
+    tempData[indexOfRecord] = data;
+    _setBookList(tempData);
+  };
 
-  return ( 
+  return (
     <>
       <article className="article-header">
         <header>
@@ -62,7 +70,11 @@ setBookList(tempData)
               onClick={onAddBookClickHnd}
               className="add-book-btn"
             />
-            <BookList list={bookList} onDeleteClickHnd={deleteBook} onEdit={editBookData}/>
+            <BookList
+              list={bookList}
+              onDeleteClickHnd={deleteBook}
+              onEdit={editBookData}
+            />
           </>
         )}
 
@@ -73,7 +85,13 @@ setBookList(tempData)
           />
         )}
 
-        {shownPage === PageEnum.edit && <EditBook data={dataToEdit} onBackBtnClickHnd={showListPage} onUpdateClickHnd={updateData}/>}
+        {shownPage === PageEnum.edit && (
+          <EditBook
+            data={dataToEdit}
+            onBackBtnClickHnd={showListPage}
+            onUpdateClickHnd={updateData}
+          />
+        )}
       </section>
     </>
   );

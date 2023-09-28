@@ -11,14 +11,14 @@ type Props = {
 const BookList = (props: Props) => {
   const { list, onDeleteClickHnd, onEdit } = props;
   const [showModal, setShowModal] = useState(false);
- const [dataToShow, setDataToShow] = useState(null as IBook | null);
+  const [dataToShow, setDataToShow] = useState(null as IBook | null);
 
   const viewBook = (data: IBook) => {
     setDataToShow(data);
     setShowModal(true);
-  }
+  };
 
- const onCloseModal = () => setShowModal(false);
+  const onCloseModal = () => setShowModal(false);
   return (
     <div>
       <article>
@@ -39,16 +39,33 @@ const BookList = (props: Props) => {
               <td>{book.status}</td>
               <td>
                 <div>
-                  <input type="button" value="View" onClick={() => viewBook(book)}/>
-                  <input type="button" value="Edit" onClick={() => onEdit(book)} />
-                  <input type="button" value="Delete" onClick={() => onDeleteClickHnd(book)}/>
+                  <input
+                    type="button"
+                    value="View"
+                    className="action_button"
+                    onClick={() => viewBook(book)}
+                  />
+                  <input
+                    type="button"
+                    value="Edit"
+                    className="action_button"
+                    onClick={() => onEdit(book)}
+                  />
+                  <input
+                    type="button"
+                    value="Delete"
+                    className="action_button"
+                    onClick={() => onDeleteClickHnd(book)}
+                  />
                 </div>
               </td>
             </tr>
           );
         })}
       </table>
-      {showModal && dataToShow !== null && <BookModal onClose={onCloseModal} data={dataToShow} />}
+      {showModal && dataToShow !== null && (
+        <BookModal onClose={onCloseModal} data={dataToShow} />
+      )}
     </div>
   );
 };

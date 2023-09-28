@@ -1,17 +1,30 @@
-.article-header {
-    background-color: orangered;
-    color: white;
-    border: 1px solid transparent;
-    text-align: center;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+
+ .article-header {
+  background-color: orangered;
+  color: white;
+  border: 1px solid transparent;
+  text-align: center;
+  font-family: "Neucha",cursive;
+  font-size: larger;
+}
+ 
+
+.section-content {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 15px;
+}
+
+.add-book-btn {
+  float: right;
+  margin-bottom: 5px;
+
+}   
+
+.add-book-btn:hover {
+  background-color:lightpink;
+  transform: scale(1.1);
   
-  .section-content {
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 15px;
-  }
-  
-  .add-book-btn {
-    float: right;
-    margin-bottom: 5px;
-  }
+}
+

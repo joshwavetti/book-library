@@ -22,7 +22,7 @@ const AddBook = (props: Props) => {
     setStatus(e.target.value);
   };
 
-  const onSubmitBtnClickHnd = (e: any) => {
+  const onSubmitBtnClickHnd = (e: React.FormEvent) => {
     e.preventDefault();
     const data: IBook = {
       id: new Date().toJSON.toString(),
@@ -56,7 +56,11 @@ const AddBook = (props: Props) => {
           </div>
           <div>
             <input type="button" value="Back" onClick={onBackBtnClickHnd} />
-            <input type="submit" value="Add Book" />
+            <input
+              type="submit"
+              value="Add Book"
+              onClick={onSubmitBtnClickHnd}
+            />
           </div>
         </form>
       </div>
